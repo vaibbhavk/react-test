@@ -55,7 +55,7 @@ const Register = () => {
     setLoading(true);
 
     axios
-      .post("http://localhost:5000/api/user", {
+      .post("https://react-test-backend28.herokuapp.com/api/user", {
         name: formState.name,
         mobile: formState.mobile,
         address: formState.address,
