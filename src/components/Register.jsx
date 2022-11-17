@@ -5,12 +5,15 @@ import { Link, useNavigate } from "react-router-dom";
 const Register = () => {
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(false);
+
   const [formState, setFormState] = useState({
     name: "",
     mobile: "",
     address: "",
     email: "",
     password: "",
+    dob: "",
     aadhaar: null,
     photo: null,
   });
@@ -49,22 +52,27 @@ const Register = () => {
 
     console.log(formState);
 
-    //react-test-backend28.herokuapp.com/
-    https: axios
-      .post("https://react-test-backend28.herokuapp.com/api/user", {
+    setLoading(true);
+
+    axios
+      .post("http://localhost:5000/api/user", {
         name: formState.name,
         mobile: formState.mobile,
         address: formState.address,
         email: formState.email,
         password: formState.password,
+        dob: formState.dob,
         aadhaar: formState.aadhaar,
         photo: formState.photo,
       })
       .then((res) => {
+        setLoading(false);
         alert(res.data.message);
         navigate("/login");
       })
       .catch((err) => {
+        setLoading(false);
+        alert("Registration failed!");
         setErrors(err.response.data.errors);
       });
   };
@@ -75,6 +83,7 @@ const Register = () => {
       <form onSubmit={handleSubmit} className="row g-1">
         <label>Name</label>
         <input
+          required
           type="text"
           name="name"
           value={formState.name}
@@ -83,6 +92,7 @@ const Register = () => {
         <br />
         <label>Mobile</label>
         <input
+          required
           type="text"
           name="mobile"
           value={formState.mobile}
@@ -92,6 +102,7 @@ const Register = () => {
 
         <label>Address</label>
         <input
+          required
           type="text"
           name="address"
           value={formState.address}
@@ -101,6 +112,7 @@ const Register = () => {
 
         <label>Email</label>
         <input
+          required
           type="email"
           name="email"
           value={formState.email}
@@ -110,6 +122,7 @@ const Register = () => {
 
         <label>Password</label>
         <input
+          required
           type="password"
           name="password"
           value={formState.password}
@@ -117,8 +130,19 @@ const Register = () => {
         />
         <br />
 
+        <label>Date of Birth</label>
+        <input
+          required
+          type="date"
+          name="dob"
+          value={formState.dob}
+          onChange={handleFormStateChange}
+        />
+        <br />
+
         <label>Aadhaar (.png, .jpeg, .jpg)</label>
         <input
+          required
           onChange={handleFileChange}
           name="aadhaar"
           type="file"
@@ -128,6 +152,7 @@ const Register = () => {
 
         <label>Profile Picture (.png, .jpeg, .jpg)</label>
         <input
+          required
           onChange={handleFileChange}
           name="photo"
           type="file"
@@ -135,7 +160,13 @@ const Register = () => {
         />
         <br />
 
-        <input type="submit" />
+        {loading ? (
+          <div className="spinner-border text-primary"></div>
+        ) : (
+          <>
+            <input type="submit" />
+          </>
+        )}
       </form>
 
       <br />

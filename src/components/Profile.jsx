@@ -13,7 +13,7 @@ const Profile = () => {
       },
     };
     axios
-      .get("https://react-test-backend28.herokuapp.com/api/user", config)
+      .get("http://localhost:5000/api/user", config)
       .then((res) => {
         setProfile(res.data);
       })
@@ -24,7 +24,7 @@ const Profile = () => {
 
   const handleLogout = (e) => {
     localStorage.removeItem("token");
-    navigate("/");
+    navigate("/login");
   };
 
   return (
@@ -37,6 +37,7 @@ const Profile = () => {
           <p>Mobile: {profile.mobile}</p>
           <p>Address: {profile.address}</p>
           <p>Email: {profile.email}</p>
+          <p>Date of Birth: {profile.dob}</p>
           <p>Aadhaar:</p>
           <img src={profile.aadhaar} />
           <p>Profile Picture: </p>
