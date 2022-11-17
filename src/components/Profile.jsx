@@ -13,7 +13,7 @@ const Profile = () => {
       },
     };
     axios
-      .get("http://localhost:5000/api/user", config)
+      .get("https://react-test-backend28.herokuapp.com/api/user", config)
       .then((res) => {
         setProfile(res.data);
       })
