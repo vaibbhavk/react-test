@@ -116,12 +116,22 @@ const Register = () => {
         />
         <br />
 
-        <label>Aadhaar</label>
-        <input onChange={handleFileChange} name="aadhaar" type="file" />
+        <label>Aadhaar (.png, .jpeg, .jpg)</label>
+        <input
+          onChange={handleFileChange}
+          name="aadhaar"
+          type="file"
+          accept="image/jpg, image/jpeg, image/png"
+        />
         <br />
 
-        <label>Profile Picture</label>
-        <input onChange={handleFileChange} name="photo" type="file" />
+        <label>Profile Picture (.png, .jpeg, .jpg)</label>
+        <input
+          onChange={handleFileChange}
+          name="photo"
+          type="file"
+          accept="image/jpg, image/jpeg, image/png"
+        />
         <br />
 
         <input type="submit" />
